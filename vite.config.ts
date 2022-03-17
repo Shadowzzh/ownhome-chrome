@@ -13,6 +13,15 @@ export default defineConfig({
     }
   },
 
+  css: {
+    preprocessorOptions: {
+      scss: {
+        additionalData: `@import "@/styles/mixin.scss";\n`,
+        charset: false
+      }
+    }
+  },
+
   plugins: [
     react(),
 

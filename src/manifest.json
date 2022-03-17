@@ -1,5 +1,5 @@
 {
-  "name": "Vite Chrome Extension",
+  "name": "ownhome",
 
   "version": "1.0",
 
@@ -7,15 +7,15 @@
 
   "action": {
     "default_icon": {
-      "16": "assets/icon16.svg"
-
-      // "48": "assets/icon48.png",
-
-      // "128": "assets/icon128.png"
+      "16": "assets/icon/icon16.svg"
     },
 
-    "default_title": "Popup",
+    "default_title": "Popup"
 
-    "default_popup": "index.html"
+    // "default_popup": "index.html"
+  },
+
+  "chrome_url_overrides": {
+    "newtab": "index.html"
   }
 }
