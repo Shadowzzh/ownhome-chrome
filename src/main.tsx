@@ -1,13 +1,19 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import { ThemeProvider } from '@material-ui/core'
 
 import './styles/index.scss'
 
-import Home from './pages/home/home'
+import LayoutHeader from './pages/home/layout/header'
+import Layout from './pages/home/layout/index'
+import Home from './pages/home'
 
 ReactDOM.render(
   <React.StrictMode>
-    <Home />
+    <Layout>
+      <LayoutHeader />
+      <Home />
+    </Layout>
   </React.StrictMode>,
   document.getElementById('root')
 )
