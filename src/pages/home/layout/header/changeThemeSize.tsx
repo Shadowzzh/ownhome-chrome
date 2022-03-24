@@ -6,6 +6,7 @@ import { FormatSizeSharp } from '@material-ui/icons'
 import { useTheme } from '../../store/modules'
 import { compose } from 'ramda'
 
+/** class */
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     menuButton: {
@@ -16,8 +17,10 @@ const useStyles = makeStyles((theme: Theme) =>
 
 /** 改变主题（ui）大小的功能 */
 export default function changeThemeSize() {
+  /** 使用预设中的主题大小，设置主题。 */
   const setSizeThemeByPreset = useTheme((state) => state.setSizeThemeByPreset)
 
+  /** 目标锚点，基于这个位置，设置生成的菜单位置 */
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
 
   const classes = useStyles()

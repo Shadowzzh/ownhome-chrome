@@ -12,8 +12,10 @@ type Size = keyof ThemeSizePreset
 function useTheme(set: SetState<ThemeState>) {
   const theme = createTheme({ props: {} })
 
+  /** 设置主题 */
   const setTheme = (theme: Theme) => set((state) => ({ ...state, theme }))
 
+  /** 根据 Size 获取预设的主题配置 */
   const getSizeThemeByPreset = (size: Size) => ({
     props: themeSizePreset[size]
   })
@@ -24,7 +26,12 @@ function useTheme(set: SetState<ThemeState>) {
     getSizeThemeByPreset
   )
 
-  return { theme, setSizeThemeByPreset }
+  return {
+    /** 主题 */
+    theme,
+    /** 使用预设中的主题大小，设置主题。 */
+    setSizeThemeByPreset
+  }
 }
 
 export default createStore(useTheme)
