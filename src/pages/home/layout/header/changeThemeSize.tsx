@@ -29,7 +29,9 @@ export default function changeThemeSize() {
   const onOpenMenu = compose(setAnchorEl, (e) => e.currentTarget)
 
   /** 关闭菜单 */
-  const onCloseMunu = () => setAnchorEl(null)
+  const onCloseMunu = () => {
+    setAnchorEl(null)
+  }
 
   /** 选中菜单 设置大小主题 -> 关闭菜单*/
   const onSelectedItem = compose(onCloseMunu, setSizeThemeByPreset)
@@ -37,13 +39,9 @@ export default function changeThemeSize() {
   return (
     <div>
       <IconButton
-        aria-controls='simple-menu'
-        aria-haspopup='true'
-        onClick={onOpenMenu}
-        edge='start'
+        onMouseEnter={onOpenMenu}
         color='inherit'
         className={classes.menuButton}
-        aria-label='palette'
       >
         <FormatSizeSharp />
       </IconButton>
@@ -54,9 +52,11 @@ export default function changeThemeSize() {
         open={Boolean(anchorEl)}
         onClose={onCloseMunu}
       >
-        <MenuItem onClick={() => onSelectedItem('large')}>大</MenuItem>
-        <MenuItem onClick={() => onSelectedItem('medium')}>中</MenuItem>
-        <MenuItem onClick={() => onSelectedItem('small')}>小</MenuItem>
+        <div onMouseLeave={onCloseMunu}>
+          <MenuItem onClick={() => onSelectedItem('large')}>大</MenuItem>
+          <MenuItem onClick={() => onSelectedItem('medium')}>中</MenuItem>
+          <MenuItem onClick={() => onSelectedItem('small')}>小</MenuItem>
+        </div>
       </Menu>
     </div>
   )
