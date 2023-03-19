@@ -1,7 +1,8 @@
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import { AppBar, Toolbar, Typography, IconButton } from '@material-ui/core'
-import { Menu as MenuUi, Palette } from '@material-ui/icons'
-import ChangeThemeSizefrom from './changeThemeSize'
+import { Menu as MenuUi } from '@material-ui/icons'
+import ChangeThemeSize from './changeThemeSize'
+import ChangeThemeColor from './changeThemeColor'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -39,17 +40,10 @@ export default function layoutHeader() {
           </Typography>
 
           {/* 配色 */}
-          <IconButton
-            edge='start'
-            color='inherit'
-            className={classes.menuButton}
-            aria-label='palette'
-          >
-            <Palette />
-          </IconButton>
+          <ChangeThemeColor />
 
           {/* ui 大小 */}
-          <ChangeThemeSizefrom></ChangeThemeSizefrom>
+          <ChangeThemeSize />
         </Toolbar>
       </AppBar>
     </div>

@@ -45,6 +45,8 @@ function useTheme(set: SetState<ThemeState>) {
   return {
     /** 主题 */
     theme,
+    /** 设置主题 */
+    setTheme,
     /** 使用预设中的主题大小，设置主题。 */
     setSizeThemeByPreset
   }

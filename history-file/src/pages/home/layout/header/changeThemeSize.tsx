@@ -29,9 +29,7 @@ export default function changeThemeSize() {
   const onOpenMenu = compose(setAnchorEl, (e) => e.currentTarget)
 
   /** 关闭菜单 */
-  const onCloseMunu = () => {
-    setAnchorEl(null)
-  }
+  const onCloseMunu = () => setAnchorEl(null)
 
   /** 选中菜单 设置大小主题 -> 关闭菜单*/
   const onSelectedItem = compose(onCloseMunu, setSizeThemeByPreset)
