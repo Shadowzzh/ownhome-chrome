@@ -3,6 +3,9 @@
     "description": "Ranger!",
     "version": "1.0",
     "manifest_version": 3,
+    "content_security_policy": {
+        "extension_pages": "script-src 'self' http://localhost:8097/; object-src 'self';"
+    },
     "permissions": ["storage", "activeTab", "scripting"],
     "action": {
         "default_popup": "popup.html"

@@ -1,13 +1,17 @@
-import ReactDOM from 'react-dom'
+import React from 'react'
+import ReactDOM from 'react-dom/client'
+
 import { HashRouter } from 'react-router-dom'
 
 const Popup = () => {
-    return <>Popup1</>
+    return <div style={{ width: 300 }}>Psop1u1sp</div>
 }
 
-ReactDOM.render(
+const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
+root.render(
     <HashRouter>
-        <Popup />
-    </HashRouter>,
-    document.querySelector('#root')
+        <React.StrictMode>
+            <Popup />
+        </React.StrictMode>
+    </HashRouter>
 )
