@@ -1,0 +1,35 @@
+{
+    "name": "@projects/webpack-hmr",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "author": "",
+    "license": "ISC",
+    "scripts": {
+        "build": "webpack",
+        "start": "nodemon -e ts,tsx --exec ts-node ./server/index.ts"
+    },
+    "devDependencies": {
+        "@types/express": "^4.17.17",
+        "@types/memory-fs": "^0.3.3",
+        "@types/mime": "^3.0.1",
+        "@types/node": "*",
+        "@types/ws": "^8.5.4",
+        "@typescript-eslint/eslint-plugin": "^5.57.1",
+        "@typescript-eslint/parser": "^5.57.1",
+        "eslint": "^8.37.0",
+        "get-port": "5.1.1",
+        "html-webpack-plugin": "^5.5.0",
+        "memory-fs": "^0.5.0",
+        "mime": "^3.0.0",
+        "nodemon": "^2.0.22",
+        "ts-loader": "^9.4.2",
+        "ts-node": "^10.9.1",
+        "typescript": "^5.0.2",
+        "webpack": "^5.76.2",
+        "ws": "^8.13.0"
+    },
+    "dependencies": {
+        "express": "^4.18.2"
+    }
+}
