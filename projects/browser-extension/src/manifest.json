@@ -6,7 +6,7 @@
     "content_security_policy": {
         "extension_pages": "script-src 'self' http://localhost:8097/; object-src 'self';"
     },
-    "permissions": ["storage", "activeTab", "scripting"],
+    "permissions": ["storage", "activeTab", "scripting", "contextMenus"],
     "action": {
         "default_popup": "popup.html"
     },
@@ -17,5 +17,8 @@
             "js": ["./content.js"],
             "run_at": "document_end"
         }
-    ]
+    ],
+    "background": {
+        "service_worker": "./background.js"
+    }
 }
