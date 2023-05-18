@@ -27,9 +27,17 @@ const devConfig: Configuration = {
         clean: true
     },
 
+    resolve: {
+        extensions: ['.tsx', '.ts', '.css', '...']
+    },
+
     module: {
         rules: [
             { test: /\.([cm]?ts|tsx)$/, loader: 'ts-loader', exclude: /node_modules/ },
+            {
+                test: /\.css$/i,
+                use: ['style-loader', 'css-loader']
+            },
             {
                 test: /\.scss$/,
                 use: [

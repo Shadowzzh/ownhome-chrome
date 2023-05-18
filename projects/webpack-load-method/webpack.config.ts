@@ -15,7 +15,7 @@ const webpackConfig: Configuration = {
 
     target: 'web',
 
-    devtool: false,
+    devtool: 'source-map',
 
     entry: {
         main: `${pathInfo.src}/index.tsx`
@@ -28,6 +28,9 @@ const webpackConfig: Configuration = {
     },
 
     resolve: {
+        alias: {
+            '@': pathInfo.src
+        },
         extensions: ['.tsx', '.ts', '.js']
     },
 
