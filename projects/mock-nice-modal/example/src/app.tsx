@@ -1,6 +1,4 @@
-import './app.css'
 import NiceModal from '../../src'
-
 import React from 'react'
 import { Button, Drawer, Modal, Space } from 'antd'
 
@@ -29,6 +27,8 @@ const SecondModal = NiceModal.create((props: { a: number; b: number }) => {
 export const App = () => {
     return (
         <Space direction='vertical'>
+            <p className='text-3xl font-bold underline'>Hello world!</p>
+
             <Button
                 onClick={() => {
                     NiceModal.show(FirstModal, { a: 1, b: 2 })
