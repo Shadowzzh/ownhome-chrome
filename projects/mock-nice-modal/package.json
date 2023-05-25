@@ -5,47 +5,7 @@
     "main": "index.js",
     "scripts": {
         "build": "rollup --config rollup.config.ts --configPlugin typescript --bundleConfigAsCjs",
-        "build:tsc": "tsc",
-        "test": "jest"
-    },
-    "jest": {
-        "roots": [
-            "<rootDir>/src/test"
-        ],
-        "collectCoverage": true,
-        "collectCoverageFrom": [
-            "src/**/*.{js,jsx,ts,tsx}",
-            "!src/**/*.d.ts"
-        ],
-        "setupFiles": [
-            "react-app-polyfill/jsdom"
-        ],
-        "setupFilesAfterEnv": [
-            "<rootDir>/src/test/setupTests.ts"
-        ],
-        "testMatch": [
-            "<rootDir>/src/**/*.{spec,test}.{js,jsx,ts,tsx}"
-        ],
-        "testEnvironment": "jsdom",
-        "testRunner": "<rootDir>/node_modules/jest-circus/runner.js",
-        "moduleFileExtensions": [
-            "web.js",
-            "js",
-            "web.ts",
-            "ts",
-            "web.tsx",
-            "tsx",
-            "json",
-            "web.jsx",
-            "jsx",
-            "node"
-        ],
-        "resetMocks": true
-    },
-    "babel": {
-        "presets": [
-            "react-app"
-        ]
+        "build:tsc": "tsc"
     },
     "author": "",
     "license": "ISC",
@@ -53,21 +13,9 @@
         "react": "^18.2.0"
     },
     "devDependencies": {
-        "@babel/preset-env": "^7.21.5",
-        "@babel/preset-react": "^7.18.6",
-        "@rollup/plugin-typescript": "^11.1.1",
-        "@testing-library/jest-dom": "^5.16.5",
-        "@testing-library/react": "^14.0.0",
         "@types/react": "^18.0.28",
-        "@typescript-eslint/parser": "^5.57.1",
-        "babel-jest": "^29.5.0",
-        "babel-preset-react-app": "^10.0.1",
-        "jest": "^29.5.0",
-        "jest-circus": "^29.5.0",
-        "jest-environment-jsdom": "^29.5.0",
-        "react-app-polyfill": "^3.0.0",
-        "react-test-renderer": "^18.2.0",
         "rollup": "^3.23.0",
+        "@rollup/plugin-typescript": "^11.1.1",
         "typescript": "^5.0.2"
     }
 }

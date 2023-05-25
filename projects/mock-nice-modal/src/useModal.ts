@@ -4,7 +4,7 @@ import { useContext, useReducer } from 'react'
 import { NiceModalContext, NiceModalIdContext, initialModalStore } from './store'
 
 export let dispatch: React.Dispatch<NiceModalAction> = () => {
-    throw new Error('No dispatch method detected, did you embed your app with NiceModal.Provider?')
+    throw new Error('没有dispatch方法')
 }
 
 export const reducer: NiceModalReducer = (state, action) => {
@@ -26,6 +26,7 @@ export const reducer: NiceModalReducer = (state, action) => {
     }
 }
 
+/** 注册dispatch方法 */
 export const useModalReducer = () => {
     const [state, _dispatch] = useReducer(reducer, initialModalStore)
     dispatch = _dispatch
@@ -33,6 +34,7 @@ export const useModalReducer = () => {
     return [state, dispatch] as const
 }
 
+/** 通过hooks使用NiceModalContext */
 export const useModal = () => {
     const modals = useContext(NiceModalContext)
     const id = useContext(NiceModalIdContext)
