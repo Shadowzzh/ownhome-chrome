@@ -17,7 +17,12 @@ const pathInfo = {
 
 const devConfig: Configuration = {
     mode: 'development',
+
     devtool: 'source-map',
+
+    cache: {
+        type: 'filesystem'
+    },
 
     entry: devEntry,
 
@@ -33,27 +38,37 @@ const devConfig: Configuration = {
 
     module: {
         rules: [
-            { test: /\.([cm]?ts|tsx)$/, loader: 'ts-loader', exclude: /node_modules/ },
             {
-                test: /\.css$/i,
-                use: ['style-loader', 'css-loader']
-            },
-            {
-                test: /\.scss$/,
-                use: [
+                oneOf: [
                     {
-                        loader: 'sass-loader',
-                        options: { sourceMap: true }
+                        test: /\.([cm]?ts|tsx)$/,
+                        loader: 'ts-loader',
+                        include: path.resolve(__dirname, '../src')
                     },
                     {
-                        loader: MiniCssExtractPlugin.loader
+                        test: /\.css$/i,
+                        use: ['style-loader', 'css-loader'],
+                        include: path.resolve(__dirname, '../src')
                     },
                     {
-                        loader: 'css-loader',
-                        options: {
-                            modules: false,
-                            sourceMap: true
-                        }
+                        test: /\.scss$/,
+                        include: path.resolve(__dirname, '../src'),
+                        use: [
+                            {
+                                loader: 'sass-loader',
+                                options: { sourceMap: true }
+                            },
+                            {
+                                loader: MiniCssExtractPlugin.loader
+                            },
+                            {
+                                loader: 'css-loader',
+                                options: {
+                                    modules: false,
+                                    sourceMap: true
+                                }
+                            }
+                        ]
                     }
                 ]
             }
