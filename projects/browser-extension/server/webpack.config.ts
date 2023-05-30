@@ -43,6 +43,9 @@ const devConfig: Configuration = {
                     {
                         test: /\.([cm]?ts|tsx)$/,
                         loader: 'ts-loader',
+                        options: {
+                            transpileOnly: true
+                        },
                         include: path.resolve(__dirname, '../src')
                     },
                     {

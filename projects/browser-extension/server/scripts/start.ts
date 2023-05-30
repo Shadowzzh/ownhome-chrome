@@ -1,5 +1,5 @@
 import { webpack } from 'webpack'
-import { HOST, HRM_PATH, PORT } from '../utils/constants'
+import { HOST, PORT, HRM_PATH } from '../utils/constants'
 
 import express from 'express'
 import devConfig from '../webpack.config'
