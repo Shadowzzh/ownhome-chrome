@@ -12,6 +12,7 @@ const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 
 const ThemeProviderWrapper = (props: { children: React.ReactNode }) => {
     const themeOptions = useThemeStore((state) => state.themeOptions)
+
     return <ThemeProvider theme={themeOptions}>{props.children}</ThemeProvider>
 }
 

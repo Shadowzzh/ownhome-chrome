@@ -1,7 +1,7 @@
-import type { ThemeOptions } from '@mui/material'
+import { ThemeOptions, createTheme } from '@mui/material'
 import { themeOptions } from '../../styles/theme'
 import { create } from 'zustand'
-import { produce } from 'immer'
+import { defaultThemeOptions } from '../../styles/theme'
 
 type ThemeMode = 'dark' | 'light'
 
@@ -14,11 +14,16 @@ interface ThemeState {
 export const useThemeStore = create<ThemeState>()((set) => ({
     themeOptions: themeOptions,
     setThemeOptions: () => set((state) => ({ themeOptions: state.themeOptions })),
-    setThemeMode: (themeMode) =>
-        set(
-            produce((state: ThemeState) => {
-                if (!state.themeOptions.palette) return
-                state.themeOptions.palette.mode = themeMode
+    setThemeMode: (themeMode) => {
+        set((state) => {
+            state.themeOptions = createTheme({
+                palette: {
+                    ...defaultThemeOptions.palette,
+                    mode: themeMode
+                }
             })
-        )
+
+            return { themeOptions: state.themeOptions }
+        })
+    }
 }))
