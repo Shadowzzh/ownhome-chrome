@@ -32,13 +32,21 @@ const webpackConfig: Configuration = {
     module: {
         rules: [
             {
-                test: /\.([cm]?ts|tsx)$/,
-                use: 'ts-loader',
-                exclude: /node_modules/
-            },
-            {
-                test: /\.css$/,
-                use: ['style-loader', 'css-loader']
+                oneOf: [
+                    {
+                        test: /\.([cm]?ts|tsx)$/,
+                        loader: 'ts-loader',
+                        options: {
+                            transpileOnly: true
+                        },
+                        exclude: /node_modules/
+                    },
+                    {
+                        test: /\.css$/,
+                        use: ['style-loader', 'css-loader'],
+                        include: `${DIR_PATH}/src}`
+                    }
+                ]
             }
         ]
     },
