@@ -9,7 +9,7 @@ const webpackConfig: Configuration = {
     entry: {
         index: [
             // 我的入口文件
-            `${DIR_PATH}/src/index.ts`,
+            `${DIR_PATH}/src/index.tsx`,
             // 开发时的客户端，用于web socket传输，热更新和实时刷新逻辑
             'webpack-hot-middleware/client'
         ]
@@ -18,7 +18,7 @@ const webpackConfig: Configuration = {
     module: {
         rules: [
             {
-                test: /\.tsx?$/,
+                test: /\.([cm]?ts|tsx)$/,
                 use: 'ts-loader',
                 exclude: /node_modules/
             },
@@ -42,7 +42,9 @@ const webpackConfig: Configuration = {
         // 热更新模块
         new HotModuleReplacementPlugin(),
         new HtmlWebpackPlugin({
-            title: 'Hot Module Replacement'
+            filename: 'index.html',
+            chunks: ['index'],
+            template: `${DIR_PATH}/public/index.html`
         })
     ]
 }
