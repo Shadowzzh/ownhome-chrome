@@ -22,6 +22,10 @@ const webpackConfig: Configuration = {
 
     stats: 'errors-only',
 
+    cache: {
+        type: 'filesystem'
+    },
+
     module: {
         rules: [
             {
