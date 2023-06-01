@@ -1,8 +1,11 @@
 import type { Configuration } from 'webpack'
+import path from 'path'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 import speedMeasurePlugin from 'speed-measure-webpack-plugin'
+import CopyPlugin from 'copy-webpack-plugin'
 import { HotModuleReplacementPlugin } from 'webpack'
-import { DIR_PATH } from './constant'
+import { DIR_PATH, SRC_PATH } from './constant'
+import devEntry from './entry'
 
 const smp = new speedMeasurePlugin({
     disable: false, // 默认值：false，表示该插件是否禁用
@@ -13,14 +16,9 @@ const smp = new speedMeasurePlugin({
 const webpackConfig: Configuration = {
     mode: 'development',
 
-    entry: {
-        index: [
-            // 我的入口文件
-            `${DIR_PATH}/src/index.tsx`,
-            // 开发时的客户端，用于web socket传输，热更新和实时刷新逻辑
-            'webpack-hot-middleware/client'
-        ]
-    },
+    entry: devEntry,
+
+    devtool: false,
 
     stats: {
         modules: false,
@@ -44,7 +42,7 @@ const webpackConfig: Configuration = {
                     {
                         test: /\.css$/,
                         use: ['style-loader', 'css-loader'],
-                        include: `${DIR_PATH}/src}`
+                        include: SRC_PATH
                     }
                 ]
             }
@@ -56,19 +54,45 @@ const webpackConfig: Configuration = {
     },
 
     output: {
-        filename: '[name].bundle.js',
+        filename: '[name].js',
         path: `${DIR_PATH}/dist`
+    },
+
+    optimization: {
+        minimize: false,
+
+        runtimeChunk: 'single',
+
+        splitChunks: {
+            chunks: 'all',
+        }
     },
 
     plugins: [
         // 热更新模块
         new HotModuleReplacementPlugin(),
+
+        new CopyPlugin({
+            patterns: [
+                { from: path.resolve(SRC_PATH, 'manifest.json') }
+                // { from: path.resolve(SRC_PATH, 'assets'), to: 'assets' }
+            ]
+        }),
+
+        // popup页面
         new HtmlWebpackPlugin({
-            filename: 'index.html',
-            chunks: ['index'],
-            template: `${DIR_PATH}/public/index.html`
+            filename: 'popup.html',
+            chunks: ['popup'],
+            template: `${DIR_PATH}/public/popup.html`
+        }),
+
+        // options页面
+        new HtmlWebpackPlugin({
+            filename: 'options.html',
+            chunks: ['options'],
+            template: `${DIR_PATH}/public/options.html`
         })
     ]
 }
 
-export default smp.wrap({ ...webpackConfig })
+export default smp.wrap({ ...(webpackConfig as any) }) as any
