@@ -1,7 +1,14 @@
 import type { Configuration } from 'webpack'
-import { DIR_PATH } from './constant'
-import { HotModuleReplacementPlugin } from 'webpack'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
+import speedMeasurePlugin from 'speed-measure-webpack-plugin'
+import { HotModuleReplacementPlugin } from 'webpack'
+import { DIR_PATH } from './constant'
+
+const smp = new speedMeasurePlugin({
+    disable: false, // 默认值：false，表示该插件是否禁用
+    outputFormat: 'human', // 默认值：human，表示为格式打印其测量值，可选human/json/humanVerbose,或者是Function
+    outputTarget: console.log // 默认值：console.log，表示输出到的文件的路径或者是调用输出
+})
 
 const webpackConfig: Configuration = {
     mode: 'development',
@@ -13,6 +20,13 @@ const webpackConfig: Configuration = {
             // 开发时的客户端，用于web socket传输，热更新和实时刷新逻辑
             'webpack-hot-middleware/client'
         ]
+    },
+
+    stats: {
+        modules: false,
+        children: false,
+        chunks: false,
+        chunkModules: false
     },
 
     module: {
@@ -49,4 +63,4 @@ const webpackConfig: Configuration = {
     ]
 }
 
-export default webpackConfig
+export default smp.wrap({ ...webpackConfig })
