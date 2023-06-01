@@ -20,12 +20,7 @@ const webpackConfig: Configuration = {
 
     devtool: false,
 
-    stats: {
-        modules: false,
-        children: false,
-        chunks: false,
-        chunkModules: false
-    },
+    stats: 'errors-only',
 
     module: {
         rules: [
@@ -64,7 +59,7 @@ const webpackConfig: Configuration = {
         runtimeChunk: 'single',
 
         splitChunks: {
-            chunks: 'all',
+            chunks: 'all'
         }
     },
 
