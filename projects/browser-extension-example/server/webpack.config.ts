@@ -37,7 +37,7 @@ const webpackConfig: Configuration = {
                     {
                         test: /\.css$/,
                         use: ['style-loader', 'css-loader'],
-                        include: SRC_PATH
+                        exclude: /node_modules/
                     }
                 ]
             }
