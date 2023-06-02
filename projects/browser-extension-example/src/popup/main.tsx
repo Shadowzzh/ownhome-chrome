@@ -48,7 +48,7 @@ export const Popup = () => {
 
                         <ListItemText
                             primary='修改网页文字'
-                            secondary={<>开启之后可以修改网页的文字</>}
+                            secondary={<>开启之后可以修改网页字</>}
                         />
 
                         <Switch edge='end' color='primary' />
