@@ -4,6 +4,7 @@ import HtmlWebpackPlugin from 'html-webpack-plugin'
 import speedMeasurePlugin from 'speed-measure-webpack-plugin'
 import CopyPlugin from 'copy-webpack-plugin'
 import ReactRefreshWebpackPlugin from '@pmmmwh/react-refresh-webpack-plugin'
+import WebpackBuildAnAlyzer from 'webpack-bundle-analyzer'
 import { CleanWebpackPlugin } from 'clean-webpack-plugin'
 import { HotModuleReplacementPlugin } from 'webpack'
 import { DIR_PATH, SRC_PATH, BUILD_PATH } from './constant'
@@ -54,12 +55,35 @@ const webpackConfig: Configuration = {
     },
 
     optimization: {
-        minimize: false,
-
         runtimeChunk: 'single',
 
         splitChunks: {
-            chunks: 'all'
+            chunks: 'all',
+            cacheGroups: {
+                material: {
+                    test: /[\\/]node_modules[\\/]@mui[\\/]/,
+                    name: 'chunk-material',
+                    chunks: 'all',
+                    priority: 10,
+                    enforce: true
+                },
+                react: {
+                    test: /[\\/]node_modules[\\/](react|react-dom)[\\/]/,
+                    name: 'chunk-react',
+                    chunks: 'all',
+                    priority: 10,
+                    enforce: true
+                },
+                vendor: {
+                    chunks: 'all',
+                    test: /node_modules/,
+                    name: 'chunk-vendor',
+                    minChunks: 1, //在分割之前，这个代码块最小应该被引用的次数
+                    maxInitialRequests: 5,
+                    minSize: 0, //大于 0 个字节
+                    priority: -10 //权重
+                }
+            }
         }
     },
 
@@ -95,6 +119,18 @@ const webpackConfig: Configuration = {
             template: `${DIR_PATH}/public/options.html`
         })
     ]
+}
+
+/**
+ * 开启webpack-bundle-analyzer
+ */
+if (process.env.ANALYZER === 'true') {
+    webpackConfig.plugins!.push(
+        new WebpackBuildAnAlyzer.BundleAnalyzerPlugin({
+            openAnalyzer: false,
+            analyzerMode: 'static'
+        })
+    )
 }
 
 /**
