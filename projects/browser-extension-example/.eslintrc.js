@@ -21,7 +21,9 @@ module.exports = {
         sourceType: 'module'
     },
     plugins: ['react', '@typescript-eslint'],
-    rules: {},
+    rules: {
+        '@typescript-eslint/no-explicit-any': 'off'
+    },
     overrides: [
         {
             files: ['*.js', '*.ts', '*.jsx', '*.tsx'],
