@@ -6,7 +6,7 @@ document.body.addEventListener('mousedown', (e) => {
     rightClickTarget = e.target as HTMLElement
 })
 
-chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
+chrome.runtime.onMessage.addListener(function (request) {
     const command = request.cmd as 'print'
 
     switch (command) {
@@ -36,19 +36,23 @@ function printPdf(params: { dom: HTMLElement }) {
     const styles = document.getElementsByTagName('style')
     const links = document.getElementsByTagName('link')
 
-    const iframeDocument = iframe.contentDocument!
-    const iframeWindow = iframe.contentWindow!
+    const iframeDocument = iframe.contentDocument
+    const iframeWindow = iframe.contentWindow
 
     const dom = params.dom.cloneNode(true)
 
-    iframeDocument.body.appendChild(dom)
+    if (iframeDocument) {
+        iframeDocument.body.appendChild(dom)
 
-    setStyleByFrame(iframeDocument, styles)
-    setStyleByFrame(iframeDocument, links)
+        setStyleByFrame(iframeDocument, styles)
+        setStyleByFrame(iframeDocument, links)
+    }
 
     // 打印。成功之后删除
-    iframeWindow.print()
-    iframeWindow.onafterprint = () => {
-        document.body.removeChild(iframe)
+    if (iframeWindow) {
+        iframeWindow.print()
+        iframeWindow.onafterprint = () => {
+            document.body.removeChild(iframe)
+        }
     }
 }

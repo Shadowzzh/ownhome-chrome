@@ -1,11 +1,15 @@
 {
   "include": [
-    "./**/*"
+    "./**/*",
+    ".eslintrc.js"
   ],
   "exclude": [
     "node_modules"
   ],
   "compilerOptions": {
+    "types": [
+      "@types/chrome"
+    ],
     /* Visit https://aka.ms/tsconfig to read more about this file */
     "target": "ES6", /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */
     "module": "NodeNext", /* Specify what module code is generated. */
