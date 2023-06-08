@@ -5,7 +5,7 @@ import { Configuration } from 'webpack'
 /** 开发时的客户端，用于web socket传输，热更新和实时刷新逻辑 */
 export const HRM_PATH = '/__webpack_HMR__'
 const HMRSSEPath = encodeURIComponent(`http://${HOST}:${PORT}${HRM_PATH}`)
-const HMRClientScript = `webpack-hot-middleware/client?path=${HMRSSEPath}&reload=true`
+const HMRClientScript = `webpack-hot-middleware/client?path=${HMRSSEPath}&reload=false`
 
 const backgroundPath = resolve(SRC_PATH, './background.ts')
 const optionsPath = resolve(SRC_PATH, './options/index.tsx')
@@ -14,9 +14,7 @@ const contentScriptPath = resolve(SRC_PATH, './contentScript.ts')
 
 /** 我的入口文件 */
 const devEntry: Configuration['entry'] = {
-    background: {
-        import: [backgroundPath, HMRClientScript]
-    },
+    background: [backgroundPath, HMRClientScript],
     options: [optionsPath, HMRClientScript],
     popup: [popupPath, HMRClientScript],
     content: [contentScriptPath, HMRClientScript]

@@ -1,25 +1,51 @@
+import type { Message } from './type'
+import { STORAGE, storage } from './storage'
+
 let rightClickTarget: HTMLElement | null = null
 
 document.body.addEventListener('mousedown', (e) => {
     if (e.button !== 2 || !e.target) return
-
     rightClickTarget = e.target as HTMLElement
 })
 
-chrome.runtime.onMessage.addListener(function (request) {
-    const command = request.cmd as 'print'
+const initial = async () => {
+    const storageData = await storage.get(STORAGE.CONTENT_EDITABLE)
 
-    switch (command) {
+    if (storageData.contentEditable !== undefined) {
+        console.log(1)
+        setContentEditable(storageData.contentEditable)
+    }
+}
+
+initial()
+
+chrome.runtime.onMessage.addListener(function (request: Message.Content<boolean>) {
+    const { cmd, data } = request
+
+    switch (cmd) {
         case 'print':
             if (!rightClickTarget) return
             printPdf({ dom: rightClickTarget })
 
             break
+        case 'contentEditable':
+            data !== undefined && setContentEditable(data)
 
+            break
         default:
             break
     }
 })
+
+function setContentEditable(data: boolean) {
+    if (data === true) {
+        document.body.contentEditable = 'true'
+        document.designMode = 'on'
+    } else {
+        document.body.contentEditable = 'false'
+        document.designMode = 'off'
+    }
+}
 
 /** 使用${@link window.link}方式，打印dom */
 function printPdf(params: { dom: HTMLElement }) {
