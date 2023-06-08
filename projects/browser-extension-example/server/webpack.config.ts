@@ -64,10 +64,8 @@ const webpackConfig: Configuration = {
     },
 
     optimization: {
-        runtimeChunk: 'single',
 
         splitChunks: {
-            chunks: 'all',
             cacheGroups: {
                 material: {
                     test: /[\\/]node_modules[\\/]@mui[\\/]/,
@@ -77,14 +75,21 @@ const webpackConfig: Configuration = {
                     enforce: true
                 },
                 react: {
-                    test: /[\\/]node_modules[\\/](react|react-dom)[\\/]/,
+                    test: /[\\/]node_modules[\\/](react|react-dom|react-router|react-router-dom)[\\/]/,
                     name: 'chunk-react',
                     chunks: 'all',
                     priority: 10,
                     enforce: true
                 },
-                vendor: {
+                router: {
+                    test: /[\\/]node_modules[\\/](@remix-run)[\\/]/,
+                    name: 'chunk-@remix-run',
                     chunks: 'all',
+                    priority: 10,
+                    enforce: true
+                },
+                vendor: {
+                    chunks: 'async',
                     test: /node_modules/,
                     name: 'chunk-vendor',
                     minChunks: 1, //在分割之前，这个代码块最小应该被引用的次数
@@ -133,8 +138,8 @@ const webpackConfig: Configuration = {
 /**
  * 开启webpack-bundle-analyzer
  */
-if (process.env.ANALYZER === 'true') {
-    webpackConfig.plugins!.push(
+if (process.env.ANALYZER === 'true' && webpackConfig.plugins) {
+    webpackConfig.plugins.push(
         new WebpackBuildAnAlyzer.BundleAnalyzerPlugin({
             openAnalyzer: false,
             analyzerMode: 'static'
