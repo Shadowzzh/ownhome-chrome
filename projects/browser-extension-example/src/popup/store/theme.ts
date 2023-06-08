@@ -1,4 +1,4 @@
-import { ThemeOptions, createTheme } from '@mui/material'
+import { ThemeOptions, createTheme } from '@mui/material/styles'
 import { themeOptions } from '../../styles/theme'
 import { create } from 'zustand'
 import { defaultThemeOptions } from '../../styles/theme'

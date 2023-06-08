@@ -27,10 +27,11 @@ const webpackConfig: Configuration = {
                 oneOf: [
                     {
                         test: /\.([cm]?ts|tsx)$/,
-                        loader: 'ts-loader',
-                        options: {
-                            transpileOnly: true
-                        },
+                        use: [
+                            {
+                                loader: 'babel-loader'
+                            }
+                        ],
                         exclude: /node_modules/
                     },
                     {
@@ -44,7 +45,15 @@ const webpackConfig: Configuration = {
     },
 
     resolve: {
-        extensions: ['.tsx', '.ts', '.js']
+        extensions: ['.tsx', '.ts', '.js'],
+        alias: {
+            '@mui/base': '@mui/base/legacy',
+            '@mui/lab': '@mui/lab/legacy',
+            '@mui/material': '@mui/material/legacy',
+            '@mui/styled-engine': '@mui/styled-engine/legacy',
+            '@mui/system': '@mui/system/legacy',
+            '@mui/utils': '@mui/utils/legacy'
+        }
     },
 
     output: {

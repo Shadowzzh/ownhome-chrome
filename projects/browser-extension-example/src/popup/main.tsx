@@ -10,9 +10,8 @@ import {
     Switch,
     Box
 } from '@mui/material'
-import { Menu as IconMenu } from '@mui/icons-material'
+import { ModeEditTwoTone as ModeEditTwoToneIcon, Menu as IconMenu } from '@mui/icons-material'
 import { SwitchThemeMode } from './components/switchModeTheme'
-import ModeEditTwoToneIcon from '@mui/icons-material/ModeEditTwoTone'
 
 export const Popup = () => {
     return (
@@ -32,7 +31,6 @@ export const Popup = () => {
             <Box
                 sx={{
                     width: '100%',
-                    maxWidth: 360,
                     bgcolor: 'background.paper',
                     color: 'text.primary'
                 }}

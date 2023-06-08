@@ -1,22 +1,29 @@
-const plugins = [
-    [
-        'babel-plugin-import',
-        {
-            libraryName: '@mui/material',
-            libraryDirectory: '',
-            camel2DashComponentName: false
-        },
-        'core'
-    ],
-    [
-        'babel-plugin-import',
-        {
-            libraryName: '@mui/icons-material',
-            libraryDirectory: '',
-            camel2DashComponentName: false
-        },
-        'icons'
-    ]
-]
+module.exports = function (api) {
+    api.cache(true)
 
-module.exports = { plugins }
+    // Babel 配置选项
+    return {
+        // 插件和预设配置
+        plugins: [
+            [
+                'babel-plugin-import',
+                {
+                    libraryName: '@mui/material',
+                    libraryDirectory: '',
+                    camel2DashComponentName: false
+                },
+                'core'
+            ],
+            [
+                'babel-plugin-import',
+                {
+                    libraryName: '@mui/icons-material',
+                    libraryDirectory: '',
+                    camel2DashComponentName: false
+                },
+                'icons'
+            ]
+        ],
+        presets: ['@babel/preset-env', '@babel/preset-react', '@babel/preset-typescript']
+    }
+}
