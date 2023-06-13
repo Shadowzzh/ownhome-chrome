@@ -6,6 +6,7 @@
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
         "start": "eslint src --fix && ts-node server/scripts/start.ts",
+        "build": "eslint src --fix && ts-node server/scripts/build.ts",
         "start-speed": "cross-env START_SPEED=true ts-node server/scripts/start.ts",
         "analyzer": "cross-env ANALYZER=true ts-node server/scripts/start.ts "
     },
