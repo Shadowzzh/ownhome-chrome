@@ -1,11 +1,10 @@
 import React, { useCallback, useRef, useState } from 'react'
 import styles from './index.module.less'
-import { AppBar, Button, IconButton, Toolbar, Typography } from '@mui/material'
 import { useEffect } from 'react'
 import { useMemo } from 'react'
 
 export interface ExpandBlockProps {
-    children?: React.ReactNode
+    children?: React.FC<{ close: () => void }>
     /** 父容器 */
     container: string | HTMLElement
     /** 展开时的组件 */
@@ -175,8 +174,6 @@ export const ExpandBlock = (props: ExpandBlockProps) => {
             targetRect.current = target.getBoundingClientRect()
             originalReact.current = target.getBoundingClientRect()
 
-            console.log(targetRect.current)
-
             if (!wrapBlock.current || !targetRect.current) return
 
             // 父容器，组件展开时宽和高会充满父容器
@@ -228,24 +225,7 @@ export const ExpandBlock = (props: ExpandBlockProps) => {
                 style={{ transition, ...params.style }}
                 className={styles.expandBlock_content}
             >
-                <AppBar onClick={onClose} position='relative'>
-                    <Toolbar>
-                        <IconButton
-                            size='large'
-                            edge='start'
-                            color='inherit'
-                            aria-label='menu'
-                            sx={{ mr: 2 }}
-                        >
-                            {/* <MenuIcon /> */}
-                        </IconButton>
-                        <Typography variant='h6' component='div' sx={{ flexGrow: 1 }}>
-                            News
-                        </Typography>
-                        <Button color='inherit'>关闭</Button>
-                    </Toolbar>
-                    {props.children}
-                </AppBar>
+                {props.children?.({ close: onClose })}
             </div>
         )
     }
