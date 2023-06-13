@@ -12,14 +12,13 @@ const initial = async () => {
     const storageData = await storage.get(STORAGE.CONTENT_EDITABLE)
 
     if (storageData.contentEditable !== undefined) {
-        console.log(1)
         setContentEditable(storageData.contentEditable)
     }
 }
 
 initial()
 
-chrome.runtime.onMessage.addListener(function (request: Message.Content<boolean>) {
+chrome.runtime.onMessage.addListener(function (request: Message.AnyContent) {
     const { cmd, data } = request
 
     switch (cmd) {
@@ -32,10 +31,19 @@ chrome.runtime.onMessage.addListener(function (request: Message.Content<boolean>
             data !== undefined && setContentEditable(data)
 
             break
+
+        case 'navToUrl':
+            data && navToUrl(data)
+
+            break
         default:
             break
     }
 })
+
+function navToUrl(url: string) {
+    window.open(url, '_blank')
+}
 
 function setContentEditable(data: boolean) {
     if (data === true) {

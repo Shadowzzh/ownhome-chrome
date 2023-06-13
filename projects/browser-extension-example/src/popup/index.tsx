@@ -4,6 +4,8 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 
 import { HashRouter } from 'react-router-dom'
+import { SnackbarProvider } from 'notistack'
+
 import { Popup } from './main'
 import { ThemeProvider } from '@mui/material/styles'
 import { useThemeStore } from './store/theme'
@@ -20,6 +22,7 @@ root.render(
     <HashRouter>
         <React.StrictMode>
             <ThemeProviderWrapper>
+                <SnackbarProvider maxSnack={3} autoHideDuration={1000} />
                 <Popup />
             </ThemeProviderWrapper>
         </React.StrictMode>

@@ -2,7 +2,7 @@ import type { Message } from '../type'
 
 /** 发送信息给{@link ContentScript}文件 */
 export const sendMessageToContentScript = function <Res>(
-    message: Message.Content<boolean>,
+    message: Message.AnyContent,
     callback?: (args: Res) => void
 ) {
     chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
