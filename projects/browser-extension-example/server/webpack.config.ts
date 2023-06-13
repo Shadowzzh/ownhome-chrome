@@ -38,6 +38,16 @@ const webpackConfig: Configuration = {
                         test: /\.css$/,
                         use: ['style-loader', 'css-loader'],
                         exclude: /node_modules/
+                    },
+                    {
+                        test: /\.less$/i,
+                        use: [
+                            // compiles Less to CSS
+                            'style-loader',
+                            'css-loader',
+                            'less-loader'
+                        ],
+                        exclude: /node_modules/
                     }
                 ]
             }
@@ -64,7 +74,6 @@ const webpackConfig: Configuration = {
     },
 
     optimization: {
-
         splitChunks: {
             cacheGroups: {
                 material: {
