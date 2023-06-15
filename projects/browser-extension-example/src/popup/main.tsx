@@ -27,9 +27,9 @@ import { useState } from 'react'
 import { useEffect } from 'react'
 import { sendMessageToContentScript } from './utils'
 import { storage, STORAGE } from '../storage'
-import { ExpandBlock } from '../components/expandBlock'
 import { Close as CloseIcon } from '@mui/icons-material'
 import { login } from './api'
+import { FloatFullBlock } from '../components/floatFullBlock'
 
 /** 修改网页文字 */
 const AlterText = () => {
@@ -78,7 +78,7 @@ const AlterText = () => {
 
 /** 登入锄禾 */
 const LoginChuHe = () => {
-    const { control, handleSubmit } = useForm({
+    const { control, handleSubmit, setValue } = useForm({
         defaultValues: {
             account: '19165940712',
             password: '940712',
@@ -88,11 +88,33 @@ const LoginChuHe = () => {
 
     const onLogin = async (params: LoginParams) => {
         const data = await login(params)
-        if (!data) return
+        if (!data) {
+            return
+        }
 
+        // 保存登录表单数据
+        storage.set({ [STORAGE.LOGIN_FORM_DATA]: params })
+
+        // 页面跳转
         const url = params.address.replace('${token}', data.accessToken)
         await sendMessageToContentScript({ cmd: 'navToUrl', data: url })
     }
+
+    useEffect(() => {
+        const init = async () => {
+            const storageData = await storage.get(STORAGE.LOGIN_FORM_DATA)
+
+            if (storageData.loginFormData) {
+                const { account, password, address } = storageData.loginFormData
+
+                setValue('account', account)
+                setValue('password', password)
+                setValue('address', address)
+            }
+        }
+
+        init()
+    }, [])
 
     const LoginForm = (
         <form onSubmit={handleSubmit(onLogin)}>
@@ -180,9 +202,9 @@ const LoginChuHe = () => {
     )
 
     return (
-        <ExpandBlock
+        <FloatFullBlock
             container='#app-container'
-            faced={
+            facade={
                 <ListItem>
                     <ListItemIcon>
                         <AirlineStopsOutlinedIcon fontSize='small' />
@@ -211,7 +233,7 @@ const LoginChuHe = () => {
                     </>
                 )
             }}
-        </ExpandBlock>
+        </FloatFullBlock>
     )
 }
 

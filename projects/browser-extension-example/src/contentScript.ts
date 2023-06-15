@@ -34,8 +34,8 @@ chrome.runtime.onMessage.addListener(function (request: Message.AnyContent) {
 
         case 'navToUrl':
             data && navToUrl(data)
-
             break
+
         default:
             break
     }
@@ -45,6 +45,7 @@ function navToUrl(url: string) {
     window.open(url, '_blank')
 }
 
+/** 设置网页内容可编辑 */
 function setContentEditable(data: boolean) {
     if (data === true) {
         document.body.contentEditable = 'true'

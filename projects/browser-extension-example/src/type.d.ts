@@ -1,7 +1,10 @@
 export namespace Message {
     interface Data {
+        /** 打印 */
         print: undefined
+        /** 网页内容可编辑 */
         contentEditable: boolean
+        /** 页面跳转 */
         navToUrl: string
     }
 

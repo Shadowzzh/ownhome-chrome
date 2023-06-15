@@ -1,11 +1,7 @@
+import type { StorageData } from '../storage'
 import { BASE_URL, ajax } from '../../api'
 
-export interface LoginParams {
-    account: string
-    password: string
-    address: string
-
-}
+export type LoginParams = StorageData['loginFormData']
 
 export interface LoginResponse {
     accessToken: string
@@ -20,6 +16,12 @@ export const login = async (params: LoginParams) => {
             ...params,
             appKey: 'WEB'
         })
+
+        if (res.success === false) {
+            alert(res.message)
+            throw new Error(res.message)
+        }
+
         return res.data
     } catch (error) {
         return undefined

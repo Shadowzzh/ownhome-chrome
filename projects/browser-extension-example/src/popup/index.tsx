@@ -20,11 +20,9 @@ const ThemeProviderWrapper = (props: { children: React.ReactNode }) => {
 
 root.render(
     <HashRouter>
-        <React.StrictMode>
-            <ThemeProviderWrapper>
-                <SnackbarProvider maxSnack={3} autoHideDuration={1000} />
-                <Popup />
-            </ThemeProviderWrapper>
-        </React.StrictMode>
+        <ThemeProviderWrapper>
+            <SnackbarProvider maxSnack={3} autoHideDuration={1000} />
+            <Popup />
+        </ThemeProviderWrapper>
     </HashRouter>
 )

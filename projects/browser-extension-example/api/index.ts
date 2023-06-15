@@ -20,6 +20,7 @@ export interface Response<T> {
     code: number
     data: T
     message: string
+    success: boolean
 }
 
 // 定义 AJAX 请求函数
