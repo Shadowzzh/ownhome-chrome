@@ -1,5 +1,4 @@
 import webpack from 'webpack'
-
 import webpackConfig from '../webpack.prod'
 
 const compiler = webpack(webpackConfig)

@@ -1,55 +1,63 @@
 import type { Configuration } from 'webpack'
-import path from 'path'
-import HtmlWebpackPlugin from 'html-webpack-plugin'
-import speedMeasurePlugin from 'speed-measure-webpack-plugin'
-import CopyPlugin from 'copy-webpack-plugin'
-import ReactRefreshWebpackPlugin from '@pmmmwh/react-refresh-webpack-plugin'
-import WebpackBuildAnAlyzer from 'webpack-bundle-analyzer'
+import { BUILD_PATH, DIR_PATH, SRC_PATH } from './constant'
 import { CleanWebpackPlugin } from 'clean-webpack-plugin'
-import { HotModuleReplacementPlugin } from 'webpack'
-import { DIR_PATH, SRC_PATH, BUILD_PATH } from './constant'
-import devEntry from './entry'
+import CopyPlugin from 'copy-webpack-plugin'
+import HtmlWebpackPlugin from 'html-webpack-plugin'
+import MiniCssExtractPlugin from 'mini-css-extract-plugin'
+import path from 'path'
 
-const webpackConfig: Configuration = {
-    mode: 'development',
+function getCssLoaders(importLoaders: number) {
+    return [
+        {
+            loader: MiniCssExtractPlugin.loader
+        },
+        {
+            loader: 'css-loader',
+            options: {
+                modules: {
+                    localIdentName: '[name]__[hash:base64:5]'
+                },
+                sourceMap: true,
+                importLoaders
+            }
+        }
+    ]
+}
 
-    entry: devEntry,
-
-    devtool: false,
-
-    cache: {
-        type: 'filesystem'
-    },
-
+const webpackCommonConfig: Configuration = {
     module: {
         rules: [
             {
-                oneOf: [
+                test: /\.([cm]?ts|tsx)$/,
+                use: [
                     {
-                        test: /\.([cm]?ts|tsx)$/,
-                        use: [
-                            {
-                                loader: 'babel-loader'
-                            }
-                        ],
-                        exclude: /node_modules/
-                    },
-                    {
-                        test: /\.css$/,
-                        use: ['style-loader', 'css-loader'],
-                        exclude: /node_modules/
-                    },
-                    {
-                        test: /\.less$/i,
-                        use: [
-                            // compiles Less to CSS
-                            'style-loader',
-                            'css-loader',
-                            'less-loader'
-                        ],
-                        exclude: /node_modules/
+                        loader: 'babel-loader'
                     }
-                ]
+                ],
+                exclude: /node_modules/
+            },
+
+            {
+                test: /\.css$/,
+                use: [...getCssLoaders(0)],
+                exclude: /node_modules/
+            },
+
+            {
+                test: /\.less$/i,
+                use: [
+                    ...getCssLoaders(1),
+                    {
+                        loader: 'less-loader',
+                        options: {
+                            sourceMap: true,
+                            lessOptions: {
+                                javascriptEnabled: true
+                            }
+                        }
+                    }
+                ],
+                exclude: /node_modules/
             }
         ]
     },
@@ -114,16 +122,6 @@ const webpackConfig: Configuration = {
         // 清除dist目录
         new CleanWebpackPlugin({ cleanStaleWebpackAssets: false }),
 
-        // 热更新模块
-        new HotModuleReplacementPlugin(),
-
-        // React热更新模块
-        new ReactRefreshWebpackPlugin({
-            overlay: {
-                sockIntegration: 'whm'
-            }
-        }),
-
         new CopyPlugin({
             patterns: [{ from: path.resolve(SRC_PATH, 'manifest.json') }]
         }),
@@ -140,34 +138,13 @@ const webpackConfig: Configuration = {
             filename: 'options.html',
             chunks: ['options'],
             template: `${DIR_PATH}/public/options.html`
+        }),
+
+        new MiniCssExtractPlugin({
+            filename: `css/[name].css`,
+            ignoreOrder: false
         })
     ]
 }
 
-/**
- * 开启webpack-bundle-analyzer
- */
-if (process.env.ANALYZER === 'true' && webpackConfig.plugins) {
-    webpackConfig.plugins.push(
-        new WebpackBuildAnAlyzer.BundleAnalyzerPlugin({
-            openAnalyzer: false,
-            analyzerMode: 'static'
-        })
-    )
-}
-
-/**
- * 注意使用{@link smpWebpackConfig}后，会导致热更新失效。
- * 具体原因不明，所以只在你想要测量构建时间的时候才使用它。
- */
-if (process.env.START_SPEED === 'true') {
-    const smp = new speedMeasurePlugin({
-        disable: false, // 默认值：false，表示该插件是否禁用
-        outputFormat: 'human', // 默认值：human，表示为格式打印其测量值，可选human/json/humanVerbose,或者是Function
-        outputTarget: console.log // 默认值：console.log，表示输出到的文件的路径或者是调用输出
-    })
-
-    smp.wrap(webpackConfig as any)
-}
-
-export default webpackConfig
+export default webpackCommonConfig

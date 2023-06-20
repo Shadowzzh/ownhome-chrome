@@ -69,7 +69,7 @@ export const CollapseBlock = (props: ExpandBlockProps) => {
                 key={'facedBlock'}
                 style={{ ...params.style }}
                 className={styles.expandBlock_faced}
-                onClick={(e) => onExpand()}
+                onClick={() => onExpand()}
             >
                 {props.faced}
             </div>

@@ -114,7 +114,7 @@ const LoginChuHe = () => {
         }
 
         init()
-    }, [])
+    }, [setValue])
 
     const LoginForm = (
         <form onSubmit={handleSubmit(onLogin)}>

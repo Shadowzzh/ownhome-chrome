@@ -4,7 +4,7 @@ import webpackDevMiddleware from 'webpack-dev-middleware'
 import webpackHotMiddleware from 'webpack-hot-middleware'
 import cors from 'cors'
 
-import webpackConfig from '../webpack.config'
+import webpackConfig from '../webpack.dev'
 import { PORT } from '../constant'
 import { HRM_PATH } from '../entry'
 
