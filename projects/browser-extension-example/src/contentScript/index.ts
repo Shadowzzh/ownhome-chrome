@@ -13,6 +13,11 @@ const initial = async () => {
 }
 
 initial()
+document.body.addEventListener('mousedown', (e) => {
+    if (e.button !== 2 || !e.target) return
+
+    rightClickTarget = e.target as HTMLElement
+})
 
 chrome.runtime.onMessage.addListener(function (request: Message.AnyContent) {
     const { cmd, data } = request
