@@ -1,10 +1,10 @@
 import { STORAGE, storage } from '../storage'
 import { Message } from '../type'
-import { printPdf } from '../utils'
-
-let rightClickTarget: HTMLElement | null = null
+import { printPdfFunction } from './printPdfFunction'
 
 const initial = async () => {
+    printPdfFunction.watch()
+
     const storageData = await storage.get(STORAGE.CONTENT_EDITABLE)
 
     if (storageData.contentEditable !== undefined) {
@@ -13,20 +13,12 @@ const initial = async () => {
 }
 
 initial()
-document.body.addEventListener('mousedown', (e) => {
-    if (e.button !== 2 || !e.target) return
-
-    rightClickTarget = e.target as HTMLElement
-})
-
 chrome.runtime.onMessage.addListener(function (request: Message.AnyContent) {
     const { cmd, data } = request
 
     switch (cmd) {
         case 'print':
-            if (!rightClickTarget) return
-            printPdf({ dom: rightClickTarget })
-
+            printPdfFunction.print()
             break
         case 'contentEditable':
             data !== undefined && setContentEditable(data)
