@@ -10,7 +10,7 @@ const HMRClientScript = `webpack-hot-middleware/client?path=${HMRSSEPath}&reload
 const backgroundPath = resolve(SRC_PATH, './background.ts')
 const optionsPath = resolve(SRC_PATH, './options/index.tsx')
 const popupPath = resolve(SRC_PATH, './popup/index.tsx')
-const contentScriptPath = resolve(SRC_PATH, './contentScript.ts')
+const contentScriptPath = resolve(SRC_PATH, './contentScript/index.ts')
 
 /** 我的入口文件 */
 const devEntry: Configuration['entry'] = {

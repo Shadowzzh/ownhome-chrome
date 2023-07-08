@@ -13,13 +13,13 @@ function getCssLoaders(importLoaders: number) {
         },
         {
             loader: 'css-loader',
-            options: {
-                modules: {
-                    localIdentName: '[name]__[hash:base64:5]'
-                },
-                sourceMap: true,
-                importLoaders
-            }
+            // options: {
+            //     modules: {
+            //         localIdentName: '[name]__[hash:base64:5]'
+            //     },
+            //     sourceMap: true,
+            //     importLoaders
+            // }
         }
     ]
 }
