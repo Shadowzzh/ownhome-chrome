@@ -1,5 +1,4 @@
 import type { LoginParams } from './api'
-import { Button, FormGroup, InputAdornment, SwitchProps, TextField } from '@mui/material'
 import {
     AppBar,
     Toolbar,
@@ -10,7 +9,13 @@ import {
     ListItemIcon,
     ListItemText,
     Switch,
-    Box
+    Box,
+    Button,
+    FormGroup,
+    InputAdornment,
+    SwitchProps,
+    TextField,
+    ThemeOptions
 } from '@mui/material'
 import { Controller, useForm } from 'react-hook-form'
 
@@ -25,11 +30,11 @@ import {
 import { SwitchThemeMode } from './components/switchModeTheme'
 import { useState } from 'react'
 import { useEffect } from 'react'
-import { sendMessageToContentScript } from './utils'
-import { storage, STORAGE } from '../storage'
+import { storage, STORAGE, StorageData } from '../storage'
 import { Close as CloseIcon } from '@mui/icons-material'
 import { login } from './api'
 import { FloatFullBlock } from '../components/floatFullBlock'
+import { sendMessageToContentScript } from '../utils'
 
 /** 修改网页文字 */
 const AlterText = () => {
@@ -237,6 +242,72 @@ const LoginChuHe = () => {
     )
 }
 
+/** 请求列表 */
+const RequestList = () => {
+    const [requestList, setRequestList] = useState<StorageData['requestList']>([])
+
+    useEffect(() => {
+        const init = async () => {
+            const storageData = await storage.get(STORAGE.REQUEST_LIST)
+            setRequestList(storageData.requestList ?? [])
+        }
+
+        init()
+    }, [])
+
+    return (
+        <FloatFullBlock
+            container='#app-container'
+            facade={
+                <ListItem>
+                    <ListItemIcon>
+                        <AirlineStopsOutlinedIcon fontSize='small' />
+                    </ListItemIcon>
+
+                    <ListItemText primary='请求列表' secondary={<>页面中所有请求数据</>} />
+                </ListItem>
+            }
+        >
+            {({ close }) => {
+                return (
+                    <>
+                        <AppBar sx={{}} position='relative'>
+                            <Toolbar variant='dense'>
+                                <IconButton size='small' sx={{ mr: 2 }} onClick={close}>
+                                    <CloseIcon />
+                                </IconButton>
+
+                                <Typography component='div' sx={{ flexGrow: 1 }}>
+                                    请求列表
+                                </Typography>
+                            </Toolbar>
+
+                            <List
+                                sx={{
+                                    width: '100%',
+                                    maxWidth: 360,
+                                    bgcolor: 'background.paper',
+                                    position: 'relative',
+                                    overflow: 'auto',
+                                    maxHeight: 400,
+                                    color: 'text.primary',
+                                    '& ul': { padding: 0 }
+                                }}
+                            >
+                                {requestList.map((item) => (
+                                    <ListItem key={item.responseURL}>
+                                        <ListItemText primary={item.responseURL} />
+                                    </ListItem>
+                                ))}
+                            </List>
+                        </AppBar>
+                    </>
+                )
+            }}
+        </FloatFullBlock>
+    )
+}
+
 export const Popup = () => {
     return (
         <div id='app-container'>
@@ -267,6 +338,8 @@ export const Popup = () => {
                 >
                     <AlterText />
                     <LoginChuHe />
+                    <LoginChuHe />
+                    <RequestList />
                 </List>
             </Box>
         </div>

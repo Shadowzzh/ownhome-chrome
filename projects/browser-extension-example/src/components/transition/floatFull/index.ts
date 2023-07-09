@@ -87,8 +87,6 @@ export class TransitionFloatFull {
         this.collapse()
         // 激活
         this.activate()
-
-        console.log(this)
     }
 
     toggle() {

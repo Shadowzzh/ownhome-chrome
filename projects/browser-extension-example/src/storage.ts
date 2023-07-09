@@ -3,7 +3,8 @@ import type { PaletteMode } from '@mui/material'
 export const STORAGE = {
     CONTENT_EDITABLE: 'contentEditable',
     THEME: 'theme',
-    LOGIN_FORM_DATA: 'loginFormData'
+    LOGIN_FORM_DATA: 'loginFormData',
+    REQUEST_LIST: 'requestList'
 } as const
 
 export interface StorageData {
@@ -17,6 +18,11 @@ export interface StorageData {
         password: string
         address: string
     }
+    /** 请求列表 */
+    requestList: {
+        responseURL: string
+        responseText: string
+    }[]
 }
 
 type StorageKey = keyof StorageData

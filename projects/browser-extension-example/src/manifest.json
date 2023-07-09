@@ -12,7 +12,17 @@
         "scripting",
         "contextMenus",
         "webRequest",
-        "declarativeNetRequest"
+        "declarativeNetRequest",
+        "declarativeContent",
+        "webRequestBlocking",
+        "<all_urls>"
+    ],
+
+    "web_accessible_resources": [
+        {
+            "resources": ["*.js", "*.html", "*.css"],
+            "matches": ["<all_urls>"]
+        }
     ],
     "action": {
         "default_popup": "popup.html"
@@ -20,9 +30,14 @@
     "options_page": "options.html",
     "content_scripts": [
         {
-            "matches": ["<all_urls>"],
+            "matches": ["<all_urls>", "*://*/*"],
             "js": ["./content.js"],
             "run_at": "document_end"
+        },
+        {
+            "matches": ["<all_urls>", "*://*/*"],
+            "js": ["./inject.js"],
+            "run_at": "document_start"
         }
     ],
     "background": {

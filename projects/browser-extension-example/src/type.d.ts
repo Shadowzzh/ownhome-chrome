@@ -1,3 +1,4 @@
+/** 各个页面的相互痛惜 */
 export namespace Message {
     interface Data {
         /** 打印 */
@@ -6,6 +7,11 @@ export namespace Message {
         contentEditable: boolean
         /** 页面跳转 */
         navToUrl: string
+        /** 请求 */
+        'request-send:load': {
+            responseURL: string
+            responseText: string
+        }
     }
 
     type Cmd = keyof Data
@@ -23,3 +29,5 @@ export namespace Message {
         data?: D
     }
 }
+
+export namespace Inject {}

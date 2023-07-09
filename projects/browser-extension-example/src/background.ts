@@ -1,4 +1,4 @@
-import { sendMessageToContentScript } from './popup/utils'
+import { sendMessageToContentScript } from "./utils"
 
 chrome.contextMenus.create({
     id: 'custom-print',
