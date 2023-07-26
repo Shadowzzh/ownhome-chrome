@@ -5,6 +5,8 @@ import CopyPlugin from 'copy-webpack-plugin'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 import path from 'path'
+import speedMeasurePlugin from 'speed-measure-webpack-plugin'
+import WebpackBuildAnAlyzer from 'webpack-bundle-analyzer'
 
 function getCssLoaders(importLoaders: number) {
     return [
@@ -12,7 +14,7 @@ function getCssLoaders(importLoaders: number) {
             loader: MiniCssExtractPlugin.loader
         },
         {
-            loader: 'css-loader',
+            loader: 'css-loader'
             // options: {
             //     modules: {
             //         localIdentName: '[name]__[hash:base64:5]'
@@ -75,44 +77,57 @@ const webpackCommonConfig: Configuration = {
     },
 
     output: {
-        filename: '[name].js',
+        filename: 'js/[name].[hash].bundle.js',
+        chunkFilename: 'js/[name]~[chunkhash]~chunk.js',
         path: BUILD_PATH,
         clean: true,
         publicPath: '/'
     },
 
     optimization: {
+        runtimeChunk: {
+            name: 'chunk-manifest'
+        },
+        chunkIds: 'named',
+        moduleIds: 'named',
         splitChunks: {
+            minSize: 100 * 1024, //生成块的最小大小（以字节为单位）1024字节=1KB。
+            maxSize: 5 * 1024 * 1024,
+            minChunks: 1, //拆分前必须共享模块的最小块数。
+            maxAsyncRequests: 20, //所有异步请求不得超过 个
+            maxInitialRequests: 30, //初始话并行请求不得超过 个
+            automaticNameDelimiter: '~', //名称分隔符，默认是~
+            chunks: 'all',
             cacheGroups: {
+                coreJs: {
+                    test: /[\\/]node_modules[\\/]core-js-pure[\\/]/,
+                    name: 'chunk-coreJs',
+                    priority: 1,
+                    enforce: true
+                },
                 material: {
                     test: /[\\/]node_modules[\\/]@mui[\\/]/,
                     name: 'chunk-material',
-                    chunks: 'all',
                     priority: 10,
                     enforce: true
                 },
                 react: {
                     test: /[\\/]node_modules[\\/](react|react-dom|react-router|react-router-dom)[\\/]/,
                     name: 'chunk-react',
-                    chunks: 'all',
-                    priority: 10,
+                    priority: 1,
                     enforce: true
                 },
                 router: {
                     test: /[\\/]node_modules[\\/](@remix-run)[\\/]/,
-                    name: 'chunk-@remix-run',
-                    chunks: 'all',
-                    priority: 10,
+                    name: 'chunk-react-router',
+                    priority: 1,
                     enforce: true
                 },
-                vendor: {
-                    chunks: 'async',
+                nodeModule: {
                     test: /node_modules/,
-                    name: 'chunk-vendor',
-                    minChunks: 1, //在分割之前，这个代码块最小应该被引用的次数
-                    maxInitialRequests: 5,
-                    minSize: 0, //大于 0 个字节
-                    priority: -10 //权重
+                    name: 'chunk-nodeModule',
+                    priority: -10, //权重
+                    enforce: true
                 }
             }
         }
@@ -145,6 +160,32 @@ const webpackCommonConfig: Configuration = {
             ignoreOrder: false
         })
     ]
+}
+
+/**
+ * 开启webpack-bundle-analyzer
+ */
+if (process.env.ANALYZER === 'true' && webpackCommonConfig.plugins) {
+    webpackCommonConfig.plugins.push(
+        new WebpackBuildAnAlyzer.BundleAnalyzerPlugin({
+            openAnalyzer: false,
+            analyzerMode: 'static'
+        })
+    )
+}
+
+/**
+ * 注意使用{@link smpWebpackConfig}后，会导致热更新失效。
+ * 具体原因不明，所以只在你想要测量构建时间的时候才使用它。
+ */
+if (process.env.START_SPEED === 'true') {
+    const smp = new speedMeasurePlugin({
+        disable: false, // 默认值：false，表示该插件是否禁用
+        outputFormat: 'human', // 默认值：human，表示为格式打印其测量值，可选human/json/humanVerbose,或者是Function
+        outputTarget: console.log // 默认值：console.log，表示输出到的文件的路径或者是调用输出
+    })
+
+    smp.wrap(webpackCommonConfig as any)
 }
 
 export default webpackCommonConfig
