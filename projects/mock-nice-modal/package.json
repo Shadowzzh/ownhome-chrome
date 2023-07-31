@@ -4,8 +4,7 @@
     "description": "",
     "main": "index.js",
     "scripts": {
-        "build": "rollup --config rollup.config.ts --configPlugin typescript --bundleConfigAsCjs",
-        "build:tsc": "tsc"
+        "build": "tsc"
     },
     "author": "",
     "license": "ISC",
@@ -14,8 +13,6 @@
     },
     "devDependencies": {
         "@types/react": "^18.0.28",
-        "rollup": "^3.23.0",
-        "@rollup/plugin-typescript": "^11.1.1",
         "typescript": "^5.0.2"
     }
 }
