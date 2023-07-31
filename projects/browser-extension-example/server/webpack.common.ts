@@ -81,7 +81,9 @@ const webpackCommonConfig: Configuration = {
         chunkFilename: 'js/[name]~[chunkhash]~chunk.js',
         path: BUILD_PATH,
         clean: true,
-        publicPath: '/'
+        publicPath: '/',
+        hotUpdateChunkFilename: 'hot/[id].[fullhash].hot-update.js',
+        hotUpdateMainFilename: 'hot/[runtime].[fullhash].hot-update.json',
     },
 
     optimization: {
