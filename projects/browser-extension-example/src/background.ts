@@ -1,4 +1,6 @@
-import { sendMessageToContentScript } from "./utils"
+import { sendMessageToContentScript } from './utils'
+
+console.log('Hello from background')
 
 chrome.contextMenus.create({
     id: 'custom-print',

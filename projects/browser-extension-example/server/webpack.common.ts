@@ -77,8 +77,8 @@ const webpackCommonConfig: Configuration = {
     },
 
     output: {
-        filename: 'js/[name].[hash].bundle.js',
-        chunkFilename: 'js/[name]~[chunkhash]~chunk.js',
+        // filename: '[name].js',
+        // chunkFilename: '[name]~[chunkhash]~chunk.js',
         path: BUILD_PATH,
         clean: true,
         publicPath: '/'
@@ -97,30 +97,30 @@ const webpackCommonConfig: Configuration = {
             maxAsyncRequests: 20, //所有异步请求不得超过 个
             maxInitialRequests: 30, //初始话并行请求不得超过 个
             automaticNameDelimiter: '~', //名称分隔符，默认是~
-            chunks: 'all',
+            chunks: 'initial',
             cacheGroups: {
                 coreJs: {
                     test: /[\\/]node_modules[\\/]core-js-pure[\\/]/,
                     name: 'chunk-coreJs',
-                    priority: 1,
+                    priority: 100,
                     enforce: true
                 },
                 material: {
                     test: /[\\/]node_modules[\\/]@mui[\\/]/,
                     name: 'chunk-material',
-                    priority: 10,
+                    priority: 1,
                     enforce: true
                 },
                 react: {
                     test: /[\\/]node_modules[\\/](react|react-dom|react-router|react-router-dom)[\\/]/,
                     name: 'chunk-react',
-                    priority: 1,
+                    priority: 10,
                     enforce: true
                 },
                 router: {
                     test: /[\\/]node_modules[\\/](@remix-run)[\\/]/,
                     name: 'chunk-react-router',
-                    priority: 1,
+                    priority: 10,
                     enforce: true
                 },
                 nodeModule: {

@@ -1,6 +1,5 @@
-console.log('interceptAjaxScript.ts')
-
-type ProxyFunctionName = 'open' | 'setRequestHeader' | 'send' | 'getAllResponseHeaders'
+/** 被代理的属性名称 */
+type ProxyField = 'open' | 'setRequestHeader' | 'send' | 'getAllResponseHeaders'
 
 class ProxyXMLHttpRequest extends XMLHttpRequest {
     constructor() {
@@ -12,15 +11,15 @@ class ProxyXMLHttpRequest extends XMLHttpRequest {
             if (value instanceof Function) {
                 const proxyFunc = new Proxy(value, {
                     apply: (target, thisArg, argArray) => {
-                        const functionName = target.name as ProxyFunctionName
+                        const functionName = target.name as ProxyField
 
                         switch (functionName) {
                             case 'open':
                                 break
                             case 'send':
                                 this.addEventListener('load', function () {
-                                    if (this.responseType !== 'blob' && this.responseText) {
-                                        requestIdleCallback(() => {
+                                    requestIdleCallback(() => {
+                                        if (this.responseType === 'text' && this.responseText) {
                                             const { responseURL, responseText } = this
 
                                             window.postMessage(
@@ -33,8 +32,8 @@ class ProxyXMLHttpRequest extends XMLHttpRequest {
                                                 },
                                                 '*'
                                             )
-                                        })
-                                    }
+                                        }
+                                    })
                                 })
 
                                 break

@@ -22,9 +22,11 @@ const devEntry: Configuration['entry'] = {
     background: [backgroundPath, HMRClientScript],
     options: [optionsPath, HMRClientScript],
     popup: [popupPath, HMRClientScript],
-    content: [contentScriptPath, HMRClientScript],
-    inject: [injectPath, HMRClientScript],
-    interceptAjaxScript: [interceptAjaxScriptPath, HMRClientScript]
+    content: {
+        import: [contentScriptPath]
+    },
+    inject: [injectPath],
+    interceptAjaxScript: [interceptAjaxScriptPath]
 }
 
 export default devEntry

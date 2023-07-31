@@ -2,35 +2,10 @@ import { STORAGE, storage } from '../storage'
 import { Message } from '../type'
 import { printPdfFunction } from './printPdfFunction'
 
-console.log('contentScript')
-/**
- * 重写ajax方法，以便在请求结束后通知content_script
- * inject_script无法直接与background通信，所以先传到content_script，再通过他传到background
- */
-
-// class ReplaceXMLHttpRequest extends XMLHttpRequest {
-//     constructor() {
-//         console.log(12312)
-//         super()
-//     }
-// }
-
-// // eslint-disable-next-line no-global-assign
-// XMLHttpRequest = null
+console.log('Hello from contentScript')
 
 const initial = async () => {
     printPdfFunction.watch()
-    // xhrHook({
-    //     open: function (args, xhr) {
-    //         console.log('open called!', args, xhr)
-    //         // return true // 返回true将终止请求，这个就是常规拦截的精髓了
-    //     },
-    //     setRequestHeader: function (args, xhr) {
-    //         console.log('setRequestHeader called!', args, xhr)
-    //     },
-    //     onload: function (xhr) {
-    //     }
-    // })
 
     const storageData = await storage.get(STORAGE.CONTENT_EDITABLE)
 

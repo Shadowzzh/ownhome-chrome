@@ -23,6 +23,7 @@ const webpackConfig: Configuration = {
 
         // React热更新模块
         new ReactRefreshWebpackPlugin({
+            exclude: [/node_modules/, /contentScript/],
             overlay: {
                 sockIntegration: 'whm'
             }

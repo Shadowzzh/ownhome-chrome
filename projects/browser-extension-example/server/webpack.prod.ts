@@ -1,14 +1,7 @@
 import type { Configuration } from 'webpack'
 import merge from 'webpack-merge'
 import webpackCommonConfig from './webpack.common'
-import {
-    backgroundPath,
-    contentScriptPath,
-    injectPath,
-    interceptAjaxScriptPath,
-    optionsPath,
-    popupPath
-} from './entry'
+import { backgroundPath, contentScriptPath, optionsPath, popupPath } from './entry'
 
 const webpackConfig: Configuration = {
     mode: 'production',
@@ -17,9 +10,7 @@ const webpackConfig: Configuration = {
         background: [backgroundPath],
         options: [optionsPath],
         popup: [popupPath],
-        content: [contentScriptPath],
-        inject: [injectPath],
-        interceptAjaxScript: [interceptAjaxScriptPath]
+        content: [contentScriptPath]
     },
 
     devtool: false,

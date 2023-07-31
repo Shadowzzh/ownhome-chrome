@@ -17,7 +17,7 @@ const compiler = webpack(webpackConfig)
 app.use(
     cors(),
     webpackDevMiddleware(compiler, {
-        publicPath: webpackConfig.output!.publicPath,
+        publicPath: webpackConfig.output?.publicPath,
         stats: 'minimal',
         writeToDisk: true
     }),
