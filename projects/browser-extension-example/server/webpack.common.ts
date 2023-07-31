@@ -77,8 +77,8 @@ const webpackCommonConfig: Configuration = {
     },
 
     output: {
-        // filename: '[name].js',
-        // chunkFilename: '[name]~[chunkhash]~chunk.js',
+        filename: 'js/[name].js',
+        chunkFilename: 'js/[name]~[chunkhash]~chunk.js',
         path: BUILD_PATH,
         clean: true,
         publicPath: '/'
