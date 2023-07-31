@@ -3,13 +3,13 @@ import { HotModuleReplacementPlugin } from 'webpack'
 import { merge } from 'webpack-merge'
 import ReactRefreshWebpackPlugin from '@pmmmwh/react-refresh-webpack-plugin'
 
-import devEntry from './entry'
-import webpackCommonConfig from './webpack.common'
+import { devPageEntry } from './entry'
+import webpackCommonConfig from './webpackPage.common'
 
 const webpackConfig: Configuration = {
     mode: 'development',
 
-    entry: devEntry,
+    entry: devPageEntry,
 
     devtool: false,
 
@@ -24,6 +24,7 @@ const webpackConfig: Configuration = {
         // React热更新模块
         new ReactRefreshWebpackPlugin({
             exclude: [/node_modules/, /contentScript/],
+            include: [/popup/, /options/],
             overlay: {
                 sockIntegration: 'whm'
             }

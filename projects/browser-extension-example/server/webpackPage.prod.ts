@@ -1,6 +1,6 @@
 import type { Configuration } from 'webpack'
 import merge from 'webpack-merge'
-import webpackCommonConfig from './webpack.common'
+import webpackCommonConfig from './webpackPage.common'
 import { backgroundPath, contentScriptPath, optionsPath, popupPath } from './entry'
 
 const webpackConfig: Configuration = {

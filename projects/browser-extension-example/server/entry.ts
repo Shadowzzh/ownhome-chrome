@@ -17,16 +17,16 @@ export const interceptAjaxScriptPath = resolve(
     './contentScript/inject/interceptAjaxScript.ts'
 )
 
-/** 我的入口文件 */
-const devEntry: Configuration['entry'] = {
-    background: [backgroundPath, HMRClientScript],
+/** 页面入口文件 */
+export const devPageEntry: Configuration['entry'] = {
     options: [optionsPath, HMRClientScript],
-    popup: [popupPath, HMRClientScript],
-    content: {
-        import: [contentScriptPath]
-    },
-    inject: [injectPath],
-    interceptAjaxScript: [interceptAjaxScriptPath]
+    popup: [popupPath, HMRClientScript]
 }
 
-export default devEntry
+/** Script入口文件 */
+export const devScriptEntry: Configuration['entry'] = {
+    background: [backgroundPath],
+    inject: [injectPath],
+    content: [contentScriptPath],
+    interceptAjaxScript: [interceptAjaxScriptPath]
+}

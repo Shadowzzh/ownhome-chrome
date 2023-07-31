@@ -1,6 +1,5 @@
 import type { Configuration } from 'webpack'
 import { BUILD_PATH, DIR_PATH, SRC_PATH } from './constant'
-import { CleanWebpackPlugin } from 'clean-webpack-plugin'
 import CopyPlugin from 'copy-webpack-plugin'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'
@@ -80,10 +79,10 @@ const webpackCommonConfig: Configuration = {
         filename: 'js/[name].js',
         chunkFilename: 'js/[name]~[chunkhash]~chunk.js',
         path: BUILD_PATH,
-        clean: true,
+        // clean: true,
         publicPath: '/',
         hotUpdateChunkFilename: 'hot/[id].[fullhash].hot-update.js',
-        hotUpdateMainFilename: 'hot/[runtime].[fullhash].hot-update.json',
+        hotUpdateMainFilename: 'hot/[runtime].[fullhash].hot-update.json'
     },
 
     optimization: {
@@ -98,8 +97,7 @@ const webpackCommonConfig: Configuration = {
             minChunks: 1, //拆分前必须共享模块的最小块数。
             maxAsyncRequests: 20, //所有异步请求不得超过 个
             maxInitialRequests: 30, //初始话并行请求不得超过 个
-            automaticNameDelimiter: '~', //名称分隔符，默认是~
-            chunks: 'initial',
+            chunks: 'all',
             cacheGroups: {
                 coreJs: {
                     test: /[\\/]node_modules[\\/]core-js-pure[\\/]/,
@@ -137,7 +135,7 @@ const webpackCommonConfig: Configuration = {
 
     plugins: [
         // 清除dist目录
-        new CleanWebpackPlugin({ cleanStaleWebpackAssets: false }),
+        // new CleanWebpackPlugin({ cleanStaleWebpackAssets: false }),
 
         new CopyPlugin({
             patterns: [{ from: path.resolve(SRC_PATH, 'manifest.json') }]
