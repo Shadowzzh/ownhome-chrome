@@ -1,14 +1,14 @@
-import { sendMessageToContentScript } from './utils'
+import { sendMessageToContentScript } from "./utils";
 
-console.log('Hello from background')
+console.log("Hello from background");
 
 chrome.contextMenus.create({
-    id: 'custom-print',
-    title: '自定义打印'
-})
+  id: "custom-print",
+  title: "自定义打印",
+});
 
 chrome.contextMenus.onClicked.addListener((info, tab) => {
-    info
-    tab
-    sendMessageToContentScript({ cmd: 'print' })
-})
+  info;
+  tab;
+  sendMessageToContentScript({ cmd: "print" });
+});

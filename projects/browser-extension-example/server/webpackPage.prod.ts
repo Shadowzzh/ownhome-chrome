@@ -1,25 +1,30 @@
-import type { Configuration } from 'webpack'
-import merge from 'webpack-merge'
-import webpackCommonConfig from './webpackPage.common'
-import { backgroundPath, contentScriptPath, optionsPath, popupPath } from './entry'
+import type { Configuration } from "webpack";
+import merge from "webpack-merge";
+import webpackCommonConfig from "./webpackPage.common";
+import {
+  backgroundPath,
+  contentScriptPath,
+  optionsPath,
+  popupPath,
+} from "./entry";
 
 const webpackConfig: Configuration = {
-    mode: 'production',
+  mode: "production",
 
-    entry: {
-        background: [backgroundPath],
-        options: [optionsPath],
-        popup: [popupPath],
-        content: [contentScriptPath]
-    },
+  entry: {
+    background: [backgroundPath],
+    options: [optionsPath],
+    popup: [popupPath],
+    content: [contentScriptPath],
+  },
 
-    devtool: false,
+  devtool: false,
 
-    cache: {
-        type: 'filesystem'
-    },
+  cache: {
+    type: "filesystem",
+  },
 
-    plugins: []
-}
+  plugins: [],
+};
 
-export default merge(webpackCommonConfig, webpackConfig)
+export default merge(webpackCommonConfig, webpackConfig);

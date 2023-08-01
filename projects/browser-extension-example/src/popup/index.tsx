@@ -1,28 +1,30 @@
-import './index.css'
+import "./index.css";
 
-import React from 'react'
-import ReactDOM from 'react-dom/client'
+import React from "react";
+import ReactDOM from "react-dom/client";
 
-import { HashRouter } from 'react-router-dom'
-import { SnackbarProvider } from 'notistack'
+import { HashRouter } from "react-router-dom";
+import { SnackbarProvider } from "notistack";
 
-import { Popup } from './main'
-import { ThemeProvider } from '@mui/material/styles'
-import { useThemeStore } from './store/theme'
+import { Popup } from "./main";
+import { ThemeProvider } from "@mui/material/styles";
+import { useThemeStore } from "./store/theme";
 
-const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
+const root = ReactDOM.createRoot(
+  document.getElementById("root") as HTMLElement
+);
 
 const ThemeProviderWrapper = (props: { children: React.ReactNode }) => {
-    const themeOptions = useThemeStore((state) => state.themeOptions)
+  const themeOptions = useThemeStore((state) => state.themeOptions);
 
-    return <ThemeProvider theme={themeOptions}>{props.children}</ThemeProvider>
-}
+  return <ThemeProvider theme={themeOptions}>{props.children}</ThemeProvider>;
+};
 
 root.render(
-    <HashRouter>
-        <ThemeProviderWrapper>
-            <SnackbarProvider maxSnack={3} autoHideDuration={1000} />
-            <Popup />
-        </ThemeProviderWrapper>
-    </HashRouter>
-)
+  <HashRouter>
+    <ThemeProviderWrapper>
+      <SnackbarProvider maxSnack={3} autoHideDuration={1000} />
+      <Popup />
+    </ThemeProviderWrapper>
+  </HashRouter>
+);

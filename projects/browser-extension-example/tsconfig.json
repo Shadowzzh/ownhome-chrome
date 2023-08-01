@@ -1,29 +1,21 @@
 {
-  "include": [
-    "./**/*",
-    ".eslintrc.js",
-    "typings.d.ts",
-  ],
-  "exclude": [
-    "node_modules"
-  ],
+  "include": ["./**/*", ".eslintrc.js", "typings.d.ts"],
+  "exclude": ["node_modules"],
   "compilerOptions": {
-    "types": [
-      "@types/chrome"
-    ],
+    "types": ["@types/chrome"],
     /* Visit https://aka.ms/tsconfig to read more about this file */
-    "target": "ES6", /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */
-    "module": "NodeNext", /* Specify what module code is generated. */
-    "esModuleInterop": true, /* Emit additional JavaScript to ease support for importing CommonJS modules. This enables 'allowSyntheticDefaultImports' for type compatibility. */
-    "forceConsistentCasingInFileNames": true, /* Ensure that casing is correct in imports. */
-    "strict": true, /* Enable all strict type-checking options. */
-    "skipLibCheck": true, /* Skip type checking all .d.ts files. */
-    "jsx": "preserve", /* Specify what JSX code is generated. */
-    "moduleResolution": "node", /* Specify how TypeScript looks up a file from a given module specifier. */
+    "target": "ES6" /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */,
+    "module": "NodeNext" /* Specify what module code is generated. */,
+    "esModuleInterop": true /* Emit additional JavaScript to ease support for importing CommonJS modules. This enables 'allowSyntheticDefaultImports' for type compatibility. */,
+    "forceConsistentCasingInFileNames": true /* Ensure that casing is correct in imports. */,
+    "strict": true /* Enable all strict type-checking options. */,
+    "skipLibCheck": true /* Skip type checking all .d.ts files. */,
+    "jsx": "preserve" /* Specify what JSX code is generated. */,
+    "moduleResolution": "node" /* Specify how TypeScript looks up a file from a given module specifier. */,
     "outDir": "./dist/",
     "sourceMap": true,
     "noImplicitAny": true,
-    "allowSyntheticDefaultImports": true,
+    "allowSyntheticDefaultImports": true
     /* Projects */
     // "incremental": true,                              /* Save .tsbuildinfo files to allow for incremental compilation of projects. */
     // "composite": true,                                /* Enable constraints that allow a TypeScript project to be used with project references. */
@@ -112,5 +104,5 @@
     // "allowUnreachableCode": true,                     /* Disable error reporting for unreachable code. */
     /* Completeness */
     // "skipDefaultLibCheck": true,                      /* Skip type checking .d.ts files that are included with TypeScript. */
-  },
+  }
 }

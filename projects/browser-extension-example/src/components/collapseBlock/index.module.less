@@ -1,19 +1,19 @@
 .expandBlock {
-    position: relative;
-    // transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+  position: relative;
+  // transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+  transform-origin: top left;
+  overflow: hidden;
+  will-change: transform;
+  outline: 999px rgba(0, 0, 0, 0.01);
+
+  &_inner {
     transform-origin: top left;
-    overflow: hidden;
     will-change: transform;
-    outline: 999px rgba(0, 0, 0, 0.01);
+  }
 
-    &_inner {
-        transform-origin: top left;
-        will-change: transform;
-    }
+  &_content {
+  }
 
-    &_content {
-    }
-
-    &_faced {
-    }
+  &_faced {
+  }
 }
