@@ -19,7 +19,10 @@ class ProxyXMLHttpRequest extends XMLHttpRequest {
                             case 'send':
                                 this.addEventListener('load', function () {
                                     requestIdleCallback(() => {
-                                        if (this.responseType === 'text' && this.responseText) {
+                                        if (
+                                            ['text', ''].includes(this.responseType) &&
+                                            this.responseText
+                                        ) {
                                             const { responseURL, responseText } = this
 
                                             window.postMessage(

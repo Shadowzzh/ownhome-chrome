@@ -5,7 +5,7 @@
  */
 const $script = document.createElement('script')
 
-$script.src = chrome.runtime.getURL('interceptAjaxScript.js')
+$script.src = chrome.runtime.getURL('js/interceptAjaxScript.js')
 
 $script.onload = function (this: any) {
     this.remove()
